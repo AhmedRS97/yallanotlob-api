@@ -1,0 +1,26 @@
+{% extend 'base.html' %}
+
+{% block ng_app %} yallanotlob.app.home {% endblock %}
+
+{% block ng_controller %}AppHomeController{% endblock %}
+
+{% block content %}
+<form class="form">
+    <div class="form-group" ng-repeat="meal in meals">
+    {% verbatim %}
+        <h3> {{meal.name}} </h3>
+	<input type="checkbox" class="form-control" name="id" value="{{meal.id}}" ng-model="newOrder.meals.{{meal.id}}">
+	<p> {{meal.description}} </p>
+    {% endverbatim %}
+    </div>
+    <div class="form-group">
+	<input type="text" class="form-control" name="notes" ng-model="newOrder.notes" placeholder="Body">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" ng-click="save()">Add Order</button>
+    </div>
+    <p ng-repeat="(name, errs) in errors" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
+</form>
+{% endblock %}
+
+{% block js %} {{block.super}} {% endblock %}
